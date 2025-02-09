@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,12 +24,14 @@ public class FinalPlug : MonoBehaviour
         {
             case "Select":
                 _movementPosition = targetObject;
+                gameObject.transform.DOLocalRotate(new Vector3(0, 0,0), 1f).SetEase(Ease.InOutSine);
                 _isSelected = true;
                 break;
 
             case "ChangePosition":
                 SocketItself = socket;
                 _movementPosition = targetObject;
+                gameObject.transform.DOLocalRotate(new Vector3(0, 90, -90), 1f).SetEase(Ease.InOutSine);
                 _positionChanged = true;
                 break;
 

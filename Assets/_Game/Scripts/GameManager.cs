@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,17 +8,20 @@ public class GameManager : MonoBehaviour
     GameObject _currentObject;
     GameObject _currentSocket;
     public bool _isMovement;
-
+    [SerializeField] private List<Handcuff> handcuffs = new List<Handcuff>();
 
     [Header("Level Settings")]
     public GameObject[] CollisionCheckObjects;
     public GameObject[] Plugs;
     public int TargetSocketCount;
     public List<bool> CollisionStates;
-    int CompletionCount;
+    int _completionCount;
     FinalPlug _finalPlug;
     int CollisionCheckCount;
 
+    [Header("UI Objects")]
+    [SerializeField] private GameObject ControlPanel;
+    [SerializeField] private TextMeshProUGUI controlText;
 
     void Start()
     {
@@ -96,12 +100,13 @@ public class GameManager : MonoBehaviour
     {
         foreach (var plug in Plugs)
         {
+            Debug.Log(plug.GetComponent<FinalPlug>().CurrentSocket.name.ToString()+":"+ plug.GetComponent<FinalPlug>().SocketColor.ToString());
             if (plug.GetComponent<FinalPlug>().CurrentSocket.name == plug.GetComponent<FinalPlug>().SocketColor)
             {
-                CompletionCount++;
+                _completionCount++;
             }
         }
-        if (CompletionCount == TargetSocketCount)
+        if (_completionCount == TargetSocketCount)
         {
             Debug.Log("All sockets are in place");
 
@@ -116,9 +121,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("Matching not completed");
           
         }
-         CompletionCount = 0;
-
-
+        _completionCount = 0;
     }
 
     public void CheckCollision(int collisionIndex, bool status)
@@ -133,11 +136,11 @@ public class GameManager : MonoBehaviour
         Debug.Log("CHECKING...");
         yield return new WaitForSeconds(4f);
 
-        CollisionCheckCount = 0;
+       
 
         foreach (var item in CollisionStates)
         {
-            if (item)
+            if (!item)
             {
                 CollisionCheckCount++;
             }
@@ -146,6 +149,10 @@ public class GameManager : MonoBehaviour
         if (CollisionCheckCount == CollisionStates.Count)
         {
             Debug.Log("YOU WIN");
+            foreach (Handcuff handcuff in handcuffs)
+            {
+                handcuff.OpenHandcuff();
+            }
         }
         else
         {

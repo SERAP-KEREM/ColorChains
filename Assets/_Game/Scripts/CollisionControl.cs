@@ -6,32 +6,38 @@ public class CollisionControl : MonoBehaviour
 {
     public GameManager _gameManager;
     public int CollisionIndex;
+    public bool state;
 
-  
+    private int _collisionCount = 0; // Aktif çarp??ma say?s?n? takip etmek için
 
-    private void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        // Detect colliders within the bounds of the object
-        Collider[] hitColliders = Physics.OverlapBox(transform.position, transform.localScale / 2, Quaternion.identity);
-        for (int i = 0; i < hitColliders.Length; i++)
+        if (other.CompareTag("CablePiece"))
         {
-            if (hitColliders[i].CompareTag("CablePiece"))
+            _collisionCount++;
+            _gameManager.CheckCollision(CollisionIndex, true);
+            state = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("CablePiece"))
+        {
+            _collisionCount--;
+            if (_collisionCount <= 0)
             {
+                _collisionCount = 0; // Negatif de?erleri önle
                 _gameManager.CheckCollision(CollisionIndex, false);
-            }
-            else
-            {
-                _gameManager.CheckCollision(CollisionIndex, true);
+                state = false;
             }
         }
-
     }
 
-    private void OnDrawGizmos()
-    {
-        // Draw a red wireframe cube to visualize the bounds
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireCube(transform.position, transform.localScale / 2);
-    }
-
+    //private void OnDrawGizmos()
+    //{
+    //    // Draw a red wireframe cube to visualize the bounds
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireCube(transform.position, transform.localScale / 2);
+    //}
 }
