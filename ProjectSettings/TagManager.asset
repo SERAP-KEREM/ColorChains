@@ -9,6 +9,7 @@ TagManager:
   - RedPlug
   - GreenPlug
   - CablePiece
+  - Ground
   layers:
   - Default
   - TransparentFX

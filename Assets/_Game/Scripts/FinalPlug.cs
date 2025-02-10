@@ -16,6 +16,7 @@ public class FinalPlug : MonoBehaviour
 
     private GameObject _movementPosition;
     private GameObject SocketItself;
+   // [SerializeField] GameObject key;
 
 
     public void Move(string action, GameObject socket, GameObject targetObject = null)
@@ -32,12 +33,14 @@ public class FinalPlug : MonoBehaviour
                 SocketItself = socket;
                 _movementPosition = targetObject;
                 gameObject.transform.DOLocalRotate(new Vector3(0, 90, -90), 1f).SetEase(Ease.InOutSine);
+              
                 _positionChanged = true;
                 break;
 
             case "SitOnSocket":
                 SocketItself = socket;
                 _isSocketOccupied = true;
+                gameObject.transform.DOLocalRotate(new Vector3(0, 90, -90), 1f).SetEase(Ease.InOutSine);
                 break;
 
             default:
@@ -80,7 +83,7 @@ public class FinalPlug : MonoBehaviour
             if (Vector3.Distance(transform.position, SocketItself.transform.position) < 0.01f)
             {
                 _isSocketOccupied = false;
-                _gameManager._isMovement = false;
+                _gameManager.IsMovement = false;
                 CurrentSocket = SocketItself;
                 _gameManager.CheckPlugs();
             }

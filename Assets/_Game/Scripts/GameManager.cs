@@ -7,8 +7,9 @@ public class GameManager : MonoBehaviour
 {
     GameObject _currentObject;
     GameObject _currentSocket;
-    public bool _isMovement;
-    [SerializeField] private List<Handcuff> handcuffs = new List<Handcuff>();
+    public bool IsMovement;
+    [SerializeField] private List<Handcuff> _handcuffs = new List<Handcuff>();
+
 
     [Header("Level Settings")]
     public GameObject[] CollisionCheckObjects;
@@ -20,11 +21,13 @@ public class GameManager : MonoBehaviour
     int CollisionCheckCount;
 
     [Header("UI Objects")]
-    [SerializeField] private GameObject ControlPanel;
-    [SerializeField] private TextMeshProUGUI controlText;
-
+    [SerializeField] private GameObject _controlPanel;
+    [SerializeField] private TextMeshProUGUI _controlText;
+    [SerializeField] private TextMeshProUGUI _moveCountText;
+    [SerializeField] private int _moveCount;
     void Start()
     {
+        _moveCountText.text=_moveCount.ToString();
         for (int i = 0; i < TargetSocketCount-1; i++)
         {
             CollisionStates.Add(false);
@@ -41,7 +44,7 @@ public class GameManager : MonoBehaviour
                 if (hit.collider != null) // Ensure the ray hit a collider
                 {
                     //# BOTTOM PLUG
-                    if (_currentObject == null && !_isMovement)
+                    if (_currentObject == null && !IsMovement)
                     {
                         // Check if the collider has one of the specified tags
                         if (hit.collider.CompareTag("BluePlug") ||
@@ -55,7 +58,7 @@ public class GameManager : MonoBehaviour
 
                             _currentObject = hit.collider.gameObject;
                             _currentSocket = _finalPlug.CurrentSocket;
-                            _isMovement = true;
+                            IsMovement = true;
 
                         }
 
@@ -76,7 +79,9 @@ public class GameManager : MonoBehaviour
 
                             _currentObject = null;
                             _currentSocket = null;
-                            _isMovement = true;
+                            IsMovement = true;
+                            _moveCount--;
+                            _moveCountText.text=_moveCount.ToString();
                         }
                         else if (_currentSocket == hit.collider.gameObject)
                         {
@@ -84,7 +89,7 @@ public class GameManager : MonoBehaviour
 
                             _currentObject = null;
                             _currentSocket = null;
-                            _isMovement = true;
+                            IsMovement = true;
                         }
                     }
 
@@ -100,7 +105,6 @@ public class GameManager : MonoBehaviour
     {
         foreach (var plug in Plugs)
         {
-            Debug.Log(plug.GetComponent<FinalPlug>().CurrentSocket.name.ToString()+":"+ plug.GetComponent<FinalPlug>().SocketColor.ToString());
             if (plug.GetComponent<FinalPlug>().CurrentSocket.name == plug.GetComponent<FinalPlug>().SocketColor)
             {
                 _completionCount++;
@@ -118,6 +122,10 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            if (_moveCount <= 0)
+            {
+                Debug.Log("Lose");
+            }
             Debug.Log("Matching not completed");
           
         }
@@ -149,17 +157,24 @@ public class GameManager : MonoBehaviour
         if (CollisionCheckCount == CollisionStates.Count)
         {
             Debug.Log("YOU WIN");
-            foreach (Handcuff handcuff in handcuffs)
+            foreach (Handcuff handcuff in _handcuffs)
             {
                 handcuff.OpenHandcuff();
             }
+            _controlText.text= "YOU WIN";
         }
         else
         {
             Debug.Log("Collision");
+            _controlText.text = "THEWRE IS A COLLISION";
+          //  Invoke(_controlPanel.SetActive(false), 2f);
             foreach (var obj in CollisionCheckObjects)
             {
                 obj.SetActive(false);
+            }
+            if (_moveCount <= 0)
+            {
+                Debug.Log("Lose");
             }
         }
 
