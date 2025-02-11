@@ -46,7 +46,7 @@ namespace SerapKeremGameTools._Game._InputSystem
         public Vector2 MovementInput { get; private set; }
 
         [Tooltip("Reference to the main camera in the scene.")]
-        private Camera mainCamera;
+        private Camera _mainCamera;
 
         /// <summary>
         /// Initializes the PlayerInput singleton and assigns the main camera.
@@ -54,15 +54,19 @@ namespace SerapKeremGameTools._Game._InputSystem
         protected override void Awake()
         {
             base.Awake();
-            mainCamera = Camera.main;
-            if (mainCamera == null)
+           
+        }
+        private void Start()
+        {
+             _mainCamera = Camera.main;
+            if (_mainCamera == null)
             {
 #if UNITY_EDITOR
                 Debug.LogError("No Main Camera found in the scene!");
 #endif
             }
+            
         }
-
         /// <summary>
         /// Updates input states, including mouse position and movement input.
         /// </summary>
@@ -83,10 +87,10 @@ namespace SerapKeremGameTools._Game._InputSystem
         /// </summary>
         private void UpdateMousePosition()
         {
-            if (mainCamera != null)
+            if (_mainCamera != null)
             {
                 Vector3 previousMousePosition = MousePosition; // Store previous position
-                MousePosition = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.nearClipPlane));
+                MousePosition = _mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _mainCamera.nearClipPlane));
 
                 // Trigger event if mouse position has changed
                 if (MousePosition != previousMousePosition)

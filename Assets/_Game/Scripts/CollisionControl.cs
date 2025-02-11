@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class CollisionControl : MonoBehaviour
 {
-    public GameManager _gameManager;
     public int CollisionIndex;
-    public bool state;
+    [SerializeField] private bool _state;
 
+    
     private int _collisionCount = 0; // Aktif çarp??ma say?s?n? takip etmek için
 
     private void OnTriggerEnter(Collider other)
@@ -15,8 +15,8 @@ public class CollisionControl : MonoBehaviour
         if (other.CompareTag("CablePiece"))
         {
             _collisionCount++;
-            _gameManager.CheckCollision(CollisionIndex, true);
-            state = true;
+            GameManager.Instance.CheckCollision(CollisionIndex, true);
+            _state = true;
         }
     }
 
@@ -28,16 +28,9 @@ public class CollisionControl : MonoBehaviour
             if (_collisionCount <= 0)
             {
                 _collisionCount = 0; // Negatif de?erleri önle
-                _gameManager.CheckCollision(CollisionIndex, false);
-                state = false;
+                GameManager.Instance.CheckCollision(CollisionIndex, false);
+                _state = false;
             }
         }
     }
-
-    //private void OnDrawGizmos()
-    //{
-    //    // Draw a red wireframe cube to visualize the bounds
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawWireCube(transform.position, transform.localScale / 2);
-    //}
 }

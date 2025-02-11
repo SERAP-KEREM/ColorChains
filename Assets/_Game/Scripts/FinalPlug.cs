@@ -8,7 +8,6 @@ public class FinalPlug : MonoBehaviour
 {
     public GameObject CurrentSocket;
     public string SocketColor;
-    [SerializeField] private GameManager _gameManager;
 
     private bool _isSelected;
     private bool _positionChanged;
@@ -16,7 +15,6 @@ public class FinalPlug : MonoBehaviour
 
     private GameObject _movementPosition;
     private GameObject SocketItself;
-   // [SerializeField] GameObject key;
 
 
     public void Move(string action, GameObject socket, GameObject targetObject = null)
@@ -83,9 +81,9 @@ public class FinalPlug : MonoBehaviour
             if (Vector3.Distance(transform.position, SocketItself.transform.position) < 0.01f)
             {
                 _isSocketOccupied = false;
-                _gameManager.IsMovement = false;
+                GameManager.Instance.IsMovement = false;
                 CurrentSocket = SocketItself;
-                _gameManager.CheckPlugs();
+                GameManager.Instance.CheckPlugs();
             }
         }
     }

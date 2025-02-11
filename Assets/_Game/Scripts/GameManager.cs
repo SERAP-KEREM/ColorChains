@@ -1,9 +1,10 @@
+using SerapKeremGameTools._Game._Singleton;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoSingleton<GameManager>
 {
     GameObject _currentObject;
     GameObject _currentSocket;
@@ -25,6 +26,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _controlText;
     [SerializeField] private TextMeshProUGUI _moveCountText;
     [SerializeField] private int _moveCount;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        
+    }
     void Start()
     {
         _moveCountText.text=_moveCount.ToString();

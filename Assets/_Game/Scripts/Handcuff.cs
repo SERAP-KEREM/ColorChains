@@ -7,7 +7,7 @@ using DG.Tweening;
 
 public class Handcuff : MonoBehaviour
 {
-    [SerializeField] private GameObject RotationPoint;
+    [SerializeField] private GameObject _rotationPoint;
     /// <summary>
     /// Kelepçeyi yumu?ak bir ?ekilde açmak için ça?r?lacak fonksiyon.
     /// </summary>
@@ -15,7 +15,7 @@ public class Handcuff : MonoBehaviour
     public void OpenHandcuff()
     {
         // Y ekseninde -90 dereceye yumu?ak geçi?
-        RotationPoint.transform.DOLocalRotate(new Vector3(0, -90, 0), 1f).SetEase(Ease.InOutSine);
+        _rotationPoint.transform.DOLocalRotate(new Vector3(0, -90, 0), 1f).SetEase(Ease.InOutSine);
     }
 }
 
