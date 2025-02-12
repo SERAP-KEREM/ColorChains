@@ -302,7 +302,7 @@ namespace SerapKeremGameTools._Game._FPSPlayerSystem
                     string jumpAudio = GetFootstepAudioNameJump(hit.collider.tag);
                     if (!string.IsNullOrEmpty(jumpAudio))
                     {
-                        AudioManager.Instance.PlayOneShotAudio(jumpAudio); // Play the jump sound
+                      //  AudioManager.Instance.PlayOneShotAudio(jumpAudio); // Play the jump sound
                     }
                 }
             }
@@ -376,7 +376,7 @@ namespace SerapKeremGameTools._Game._FPSPlayerSystem
                     string footstepAudio = PlayerFPSInput.IsSprinting ? GetFootstepAudioNameSprint(hit.collider.tag) : GetFootstepAudioName(hit.collider.tag);
                     if (!string.IsNullOrEmpty(footstepAudio))
                     {
-                        AudioManager.Instance.PlayOneShotAudio(footstepAudio);
+                       // AudioManager.Instance.PlayOneShotAudio(footstepAudio);
                     }
                 }
 

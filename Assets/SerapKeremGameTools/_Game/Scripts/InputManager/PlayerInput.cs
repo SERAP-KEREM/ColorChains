@@ -39,6 +39,8 @@ namespace SerapKeremGameTools._Game._InputSystem
         [Tooltip("Event triggered when mouse position changes.")]
         public UnityEvent<Vector3> OnMousePositionInput = new UnityEvent<Vector3>();
 
+        public UnityEvent<Collider> OnObjectClickedEvent = new UnityEvent<Collider>();
+
         /// <summary>
         /// Movement input (Vector2) based on horizontal and vertical axes.
         /// </summary>
@@ -80,6 +82,11 @@ namespace SerapKeremGameTools._Game._InputSystem
 
             // Handle mouse button events
             HandleMouseInput();
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                HandleClick();
+            }
         }
 
         /// <summary>
@@ -97,6 +104,7 @@ namespace SerapKeremGameTools._Game._InputSystem
                 {
                     OnMousePositionInput.Invoke(MousePosition);
                 }
+
             }
         }
 
@@ -137,6 +145,17 @@ namespace SerapKeremGameTools._Game._InputSystem
             float moveX = Input.GetAxisRaw("Horizontal");
             float moveY = Input.GetAxisRaw("Vertical");
             return new Vector2(moveX, moveY);
+        }
+
+        private void HandleClick()
+        {
+            if (Physics.Raycast(_mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100))
+            {
+                if (hit.collider != null)
+                {
+                    OnObjectClickedEvent.Invoke(hit.collider);
+                }
+            }
         }
     }
 }

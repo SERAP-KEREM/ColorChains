@@ -20,7 +20,7 @@ public class Piece : MonoBehaviour
     {
         if(gameObject.GetComponent<HingeJoint>() == null)
          {
-            Debug.Log("Lose1");
+           // UIManager.Instance.ShowFailPanel();
 
         }
     }
