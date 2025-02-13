@@ -37,10 +37,10 @@ public class WinPanelUI : MonoBehaviour
     public void UpdateReward(int earned, int total)
     {
         if (_earnedCoinsText != null)
-            _earnedCoinsText.text = $"Earned Coins: {earned}";
+            _earnedCoinsText.text = $"{earned}";
 
         if (_totalCoinsText != null)
-            _totalCoinsText.text = $"Total Coins: {total}";
+            _totalCoinsText.text = $"Total: {total}";
     }
     #region UI Control
 
@@ -57,7 +57,7 @@ public class WinPanelUI : MonoBehaviour
     }
     public void ShowReward(int earned, int total)
     {
-        if (_earnedCoinsText != null) _earnedCoinsText.text = $"Earned: {earned}";
+        if (_earnedCoinsText != null) _earnedCoinsText.text = $" {earned}";
         if (_totalCoinsText != null) _totalCoinsText.text = $"Total: {total}";
     }
     #endregion

@@ -15,9 +15,10 @@ public class GameplayUI : MonoBehaviour
     [SerializeField] private CanvasGroup _canvasGroup;
 
     private UIManager _uiManager;
-    public void SetLevel(int level) => _levelText.text = $"Level {level}";
+    public void SetLevel(int level) => _levelText.text = $"Level: {level}";
     public void SetMoveCount(int moves) => _moveCountText.text = $"Moves: {moves}";
-    public void SetCoins(int coins) => _coinText.text = $"Coins: {coins}";
+    public void SetCoins(int coins) => _coinText.text = $"{coins}";
+
 
     public event System.Action OnSettingsClicked;
 
@@ -28,7 +29,7 @@ public class GameplayUI : MonoBehaviour
             _canvasGroup = GetComponent<CanvasGroup>();
         InitializeUI();
 
-        SetupButtons();
+        SetupSettingsButton();
     }
 
     private void InitializeUI()
@@ -36,15 +37,18 @@ public class GameplayUI : MonoBehaviour
         ValidateReferences();
       
     }
-
-    private void SetupButtons()
+    /// <summary>
+    /// Sets up the settings button click listener.
+    /// </summary>
+    private void SetupSettingsButton()
     {
         if (_settingsButton != null)
         {
             _settingsButton.onClick.RemoveAllListeners();
-            _settingsButton.onClick.AddListener(() => OnSettingsClicked?.Invoke());
+            _settingsButton.onClick.AddListener(() => _uiManager.ShowSettings());
         }
     }
+
     /// <summary>
     /// Validates the essential UI references.
     /// </summary>

@@ -4,12 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - BluePlug
-  - Socket
-  - RedPlug
-  - GreenPlug
-  - CablePiece
   - Ground
+  - Socket
+  - CablePiece
+  - RedPlug
+  - BluePlug
+  - GreenPlug
   layers:
   - Default
   - TransparentFX

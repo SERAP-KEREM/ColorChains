@@ -55,9 +55,6 @@ public class GameManager : MonoSingleton<GameManager>
         _uiManager = FindObjectOfType<UIManager>();
         _audioManager = AudioManager.Instance;
 
-        if (_uiManager == null)
-            Debug.LogError("UIManager bulunamad?!");
-
     }
     private void Start()
     {
@@ -70,9 +67,13 @@ public class GameManager : MonoSingleton<GameManager>
     {
         if (_uiManager != null)
         {
-            int currentLevel = SceneManager.GetActiveScene().buildIndex;
+            int currentLevel = SceneManager.GetActiveScene().buildIndex+1;
             _uiManager.SetLevel(currentLevel);
             _uiManager.SetMoveCount(_moveCount);
+
+            int totalCoins = PlayerPrefs.GetInt("TotalCoins", 0);
+            PlayerPrefs.SetInt("TotalCoins", totalCoins);
+            _gameplayUI.SetCoins(totalCoins);
         }
         else
         {
@@ -91,7 +92,8 @@ public class GameManager : MonoSingleton<GameManager>
 
         int currentLevel = SceneManager.GetActiveScene().buildIndex + 1;
         DontDestroyOnLoad(Camera.main.gameObject);
-
+        _gameplayUI.SetMoveCount(_moveCount);
+        _gameplayUI.HideControlPanel();
         _audioManager = AudioManager.Instance;
     }
     #region Audio Management
@@ -191,6 +193,7 @@ public class GameManager : MonoSingleton<GameManager>
             Debug.Log("All sockets are in place");
             _gameplayUI.ShowControlPanel();
             _gameplayUI.ShowControlMessage("CHECKING...");
+          
             foreach (var obj in _collisionCheckObjects)
             {
                 obj.SetActive(true);
@@ -203,6 +206,7 @@ public class GameManager : MonoSingleton<GameManager>
             {
                 Debug.Log("Lose");
                 _gameplayUI.ShowControlMessage("LOSE");
+                Invoke(nameof(LevelFailed),2);
             }
         }
         _completionCount = 0;
@@ -212,7 +216,7 @@ public class GameManager : MonoSingleton<GameManager>
     /// <summary>
     /// Ends the level unsuccessfully, triggering the level failed event and showing the fail panel.
     /// </summary>
-    private void LevelFailed()
+    public void LevelFailed()
     {
     
         if (_uiManager != null)
@@ -268,7 +272,7 @@ public class GameManager : MonoSingleton<GameManager>
             }
             if (_moveCount <= 0)
             {
-                yield return new WaitForSeconds(1f); // Fail mesaj?n? görmek için k?sa bir bekleme
+                yield return new WaitForSeconds(1f); 
                 LevelFailed();
             }
         }
