@@ -132,6 +132,8 @@ public class GameManager : MonoSingleton<GameManager>
             {
                 if (hitCollider.CompareTag("BluePlug") ||
                     hitCollider.CompareTag("GreenPlug") ||
+                     hitCollider.CompareTag("PurplePlug") ||
+                     hitCollider.CompareTag("YellowPlug") ||
                     hitCollider.CompareTag("RedPlug"))
                 {
                     _finalPlug = hitCollider.GetComponent<FinalPlug>();
@@ -290,7 +292,7 @@ public class GameManager : MonoSingleton<GameManager>
         }
         else
         {
-            StartCoroutine(LoadLevelRoutine(1)); // ?lk levele dön
+            StartCoroutine(LoadLevelRoutine(0)); 
         }
     }
     private IEnumerator LoadLevelRoutine(int levelIndex)

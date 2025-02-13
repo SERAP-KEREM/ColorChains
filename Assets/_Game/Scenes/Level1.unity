@@ -7149,7 +7149,7 @@ MonoBehaviour:
   - {fileID: 4958528463882719635}
   _targetSocketCount: 3
   CollisionStates: 
-  _moveCount: 5
+  _moveCount: 4
   _gameplayUI: {fileID: 630849653}
   _uiManager: {fileID: 6140535525001157162}
   backgroundMusicName: BackgroundMusic
