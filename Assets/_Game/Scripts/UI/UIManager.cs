@@ -4,8 +4,10 @@ using System.Collections;
 using SerapKeremGameTools._Game._AudioSystem;
 using UnityEngine.UIElements;
 using DG.Tweening;
-
-public class UIManager : MonoBehaviour
+using _Main._Managers;
+namespace _Main._UI
+{
+    public class UIManager : MonoBehaviour
 {
     [Header("Panels")]
     [SerializeField] private GameplayUI _gameplayUI;
@@ -15,9 +17,7 @@ public class UIManager : MonoBehaviour
 
     void Awake()
     {
-
         InitializeUI();
-
     }
     /// <summary>
     /// Checks for missing references and logs error messages.
@@ -48,13 +48,11 @@ public class UIManager : MonoBehaviour
         ValidateReferences();
         SetupPanels();
 
-    
         if (_gameplayUI != null) _gameplayUI.gameObject.SetActive(true);
         if (_winPanel != null) _winPanel.gameObject.SetActive(false);
         if (_failPanel != null) _failPanel.gameObject.SetActive(false);
         if (_settingsPanel != null) _settingsPanel.gameObject.SetActive(false);
 
-        // Settings butonunu ayarla
         if (_gameplayUI != null)
         {
             _gameplayUI.OnSettingsClicked += ShowSettings;
@@ -137,15 +135,6 @@ public class UIManager : MonoBehaviour
         if (_gameplayUI != null)
             _gameplayUI.SetMoveCount(moves);
     }
-    /// <summary>
-    /// Moves to the next level.
-    /// </summary>
-    public void NextLevel()
-    {
-        DOTween.KillAll();
-        Time.timeScale = 1f;
-      //  GameManager.Instance.NextLevel();
-    }
-
     #endregion
+}
 }

@@ -1,10 +1,12 @@
+using _Main._Managers;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-
-public class GameplayUI : MonoBehaviour
+namespace _Main._UI
+{
+    public class GameplayUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _levelText;
     [SerializeField] private TextMeshProUGUI _moveCountText;
@@ -68,40 +70,7 @@ public class GameplayUI : MonoBehaviour
     public void HideControlPanel() => _controlPanel.SetActive(false);
     public void ShowControlPanel() => _controlPanel.SetActive(true);
 
-    /// <summary>
-    /// Sets up the settings button click listener.
-    /// </summary>
-    private void SetupSettingsButton(UnityAction onClick)
-    {
-        if (_settingsButton != null)
-        {
-            _settingsButton.onClick.RemoveAllListeners();
-            _settingsButton.onClick.AddListener(onClick);
-        }
-    }
-
-    public void Show()
-    {
-        gameObject.SetActive(true);
-        if (_canvasGroup != null)
-        {
-            _canvasGroup.alpha = 0f;
-            _canvasGroup.DOFade(1f, 0.3f).SetEase(Ease.OutQuad);
-        }
-    }
-    public void Hide()
-    {
-        if (_canvasGroup != null)
-        {
-            _canvasGroup.DOFade(0f, 0.2f)
-                .SetEase(Ease.InQuad)
-                .OnComplete(() => gameObject.SetActive(false));
-        }
-        else
-        {
-            gameObject.SetActive(false);
-        }
-    }
 
 
+}
 }

@@ -6,8 +6,10 @@ using DG.Tweening;
 using UnityEngine.SceneManagement;
 using SerapKeremGameTools._Game._SaveLoadSystem;
 using SerapKeremGameTools._Game._AudioSystem;
-
-public class SettingsPanelUI : MonoBehaviour
+using _Main._Managers;
+namespace _Main._UI
+{
+    public class SettingsPanelUI : MonoBehaviour
 {
     [Header("UI Elements")]
     [SerializeField, Tooltip("Close button to hide the settings panel.")]
@@ -197,4 +199,5 @@ public class SettingsPanelUI : MonoBehaviour
             _musicSlider.onValueChanged.RemoveListener(OnMusicVolumeChanged);
         }
     }
+}
 }

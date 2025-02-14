@@ -5,7 +5,9 @@ using TriInspector;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 
-public class FailPanelUI : MonoBehaviour
+namespace _Main._UI
+{
+    public class FailPanelUI : MonoBehaviour
 {
     [Group("UI Elements")]
     [PropertyTooltip("Button to restart the game.")]
@@ -41,4 +43,5 @@ public class FailPanelUI : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+}
 }

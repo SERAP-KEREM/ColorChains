@@ -1215,8 +1215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cfd1216d782977498c49232c7af90db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionIndex: 2
-  _state: 0
+  _collisionIndex: 0
+  _isColliding: 0
 --- !u!4 &146738658
 Transform:
   m_ObjectHideFlags: 0
@@ -8888,8 +8888,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12f1503915e4ccd4f9a33f14e366be3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEmpty: 0
-  MovementPosition: {fileID: 467366388}
+  _isEmpty: 0
+  _movementPosition: {fileID: 467366388}
 --- !u!65 &935418083
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9684,8 +9684,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12f1503915e4ccd4f9a33f14e366be3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEmpty: 1
-  MovementPosition: {fileID: 959113708}
+  _isEmpty: 1
+  _movementPosition: {fileID: 959113708}
 --- !u!65 &998256391
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9825,6 +9825,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentSocket: {fileID: 998256389}
   SocketColor: PurpleSocket
+  DefaultRotation: {x: 0, y: 0, z: 0}
+  ChangedRotation: {x: 0, y: 90, z: -90}
+  MoveSpeed: 0.04
+  defaultEase: 4
 --- !u!54 &1002847722
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -13368,8 +13372,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cfd1216d782977498c49232c7af90db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionIndex: 3
-  _state: 0
+  _collisionIndex: 0
+  _isColliding: 0
 --- !u!4 &1556753130
 Transform:
   m_ObjectHideFlags: 0
@@ -14093,8 +14097,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12f1503915e4ccd4f9a33f14e366be3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEmpty: 1
-  MovementPosition: {fileID: 520069109}
+  _isEmpty: 1
+  _movementPosition: {fileID: 520069109}
 --- !u!65 &1592463631
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15375,6 +15379,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationPoint: {fileID: 1003752808}
+  _openRotationAngle: -90
+  _rotationDuration: 1
 --- !u!1 &1814696916
 GameObject:
   m_ObjectHideFlags: 0
@@ -15426,6 +15432,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentSocket: {fileID: 2093640707452310412}
   SocketColor: YellowSocket
+  DefaultRotation: {x: 0, y: 0, z: 0}
+  ChangedRotation: {x: 0, y: 90, z: -90}
+  MoveSpeed: 0.04
+  defaultEase: 4
 --- !u!54 &1814696919
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17343,6 +17353,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationPoint: {fileID: 1039419332}
+  _openRotationAngle: -90
+  _rotationDuration: 1
 --- !u!1 &1986994937
 GameObject:
   m_ObjectHideFlags: 0
@@ -21078,13 +21090,13 @@ MonoBehaviour:
   - {fileID: 1720617219151770932}
   - {fileID: 4958528463882719635}
   - {fileID: 1002847719}
-  - {fileID: 1002847719}
+  - {fileID: 1814696916}
   _targetSocketCount: 5
   CollisionStates: 
   _moveCount: 7
-  _gameplayUI: {fileID: 630849653}
-  _uiManager: {fileID: 6140535525001157162}
   backgroundMusicName: BackgroundMusic
+  _uiManager: {fileID: 6140535525001157162}
+  _gameplayUI: {fileID: 630849653}
   _audioManager: {fileID: 367510502}
 --- !u!33 &853068189716163101
 MeshFilter:
@@ -23195,8 +23207,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cfd1216d782977498c49232c7af90db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionIndex: 0
-  _state: 0
+  _collisionIndex: 0
+  _isColliding: 0
 --- !u!4 &1862822273279636176
 Transform:
   m_ObjectHideFlags: 0
@@ -23388,6 +23400,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationPoint: {fileID: 3408124644005164618}
+  _openRotationAngle: -90
+  _rotationDuration: 1
 --- !u!33 &2015893799449938507
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -25690,8 +25704,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12f1503915e4ccd4f9a33f14e366be3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEmpty: 1
-  MovementPosition: {fileID: 2951340298828756036}
+  _isEmpty: 1
+  _movementPosition: {fileID: 2951340298828756036}
 --- !u!33 &3043895043206782788
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -26713,8 +26727,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cfd1216d782977498c49232c7af90db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CollisionIndex: 1
-  _state: 0
+  _collisionIndex: 0
+  _isColliding: 0
 --- !u!23 &3351436899347498275
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -27844,6 +27858,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentSocket: {fileID: 6972489523835649273}
   SocketColor: RedSocket
+  DefaultRotation: {x: 0, y: 0, z: 0}
+  ChangedRotation: {x: 0, y: 90, z: -90}
+  MoveSpeed: 0.04
+  defaultEase: 4
 --- !u!4 &3838681975295309207
 Transform:
   m_ObjectHideFlags: 0
@@ -28594,6 +28612,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationPoint: {fileID: 8974160655192822072}
+  _openRotationAngle: -90
+  _rotationDuration: 1
 --- !u!23 &4220865460613996541
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -30385,8 +30405,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12f1503915e4ccd4f9a33f14e366be3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEmpty: 1
-  MovementPosition: {fileID: 6237492234195106495}
+  _isEmpty: 1
+  _movementPosition: {fileID: 6237492234195106495}
 --- !u!1 &5041638835419006009
 GameObject:
   m_ObjectHideFlags: 0
@@ -33275,21 +33295,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!4 &6472562325453988399
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7819186261547850230}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.7315917, y: 1.2688736, z: -2.5805848}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &6476307750117904313
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -34198,6 +34203,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationPoint: {fileID: 3249936168865434526}
+  _openRotationAngle: -90
+  _rotationDuration: 1
 --- !u!4 &6782057553569524534
 Transform:
   m_ObjectHideFlags: 0
@@ -34486,8 +34493,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12f1503915e4ccd4f9a33f14e366be3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEmpty: 1
-  MovementPosition: {fileID: 2975233625118950270}
+  _isEmpty: 1
+  _movementPosition: {fileID: 2975233625118950270}
 --- !u!33 &6868051807208914569
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -36478,8 +36485,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12f1503915e4ccd4f9a33f14e366be3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsEmpty: 0
-  MovementPosition: {fileID: 9212717296042948454}
+  _isEmpty: 0
+  _movementPosition: {fileID: 9212717296042948454}
 --- !u!1 &7686243649065834938
 GameObject:
   m_ObjectHideFlags: 0
@@ -36767,22 +36774,6 @@ GameObject:
   m_Layer: 0
   m_Name: Chain
   m_TagString: CablePiece
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &7819186261547850230
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6472562325453988399}
-  m_Layer: 0
-  m_Name: ------------------------
-  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38175,6 +38166,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentSocket: {fileID: 1592463629}
   SocketColor: BlueSocket
+  DefaultRotation: {x: 0, y: 0, z: 0}
+  ChangedRotation: {x: 0, y: 90, z: -90}
+  MoveSpeed: 0.04
+  defaultEase: 4
 --- !u!1 &8380115952022554613
 GameObject:
   m_ObjectHideFlags: 0
@@ -38207,6 +38202,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentSocket: {fileID: 3246156313454832116}
   SocketColor: GreenSocket
+  DefaultRotation: {x: 0, y: 0, z: 0}
+  ChangedRotation: {x: 0, y: 90, z: -90}
+  MoveSpeed: 0.04
+  defaultEase: 4
 --- !u!33 &8416294209956249806
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -39928,7 +39927,6 @@ SceneRoots:
   - {fileID: 705507995}
   - {fileID: 4882377773119628956}
   - {fileID: 272641109860842296}
-  - {fileID: 6472562325453988399}
   - {fileID: 3422170948413492781}
   - {fileID: 2294077038400404184}
   - {fileID: 8070076476290345467}

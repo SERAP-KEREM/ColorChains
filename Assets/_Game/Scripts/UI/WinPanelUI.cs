@@ -3,6 +3,8 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using DG.Tweening;
+using _Main._UI;
+using _Main._Managers;
 
 public class WinPanelUI : MonoBehaviour
 {
@@ -54,11 +56,6 @@ public class WinPanelUI : MonoBehaviour
         transform.DOScale(Vector3.one, 0.3f)
             .SetEase(Ease.OutBack)
             .SetUpdate(true);
-    }
-    public void ShowReward(int earned, int total)
-    {
-        if (_earnedCoinsText != null) _earnedCoinsText.text = $" {earned}";
-        if (_totalCoinsText != null) _totalCoinsText.text = $"Total: {total}";
     }
     #endregion
 
