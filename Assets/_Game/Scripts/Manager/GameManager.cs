@@ -127,7 +127,10 @@ namespace _Main._Managers
         /// </summary>
         public void PlayBackgroundMusic()
         {
-            _audioManager?.PlayAudio(backgroundMusicName, true);
+            if (_audioManager != null)
+            {
+                _audioManager.PlayAudio(backgroundMusicName, true);
+            }
         }
 
         /// <summary>
