@@ -13,8 +13,8 @@ namespace _Main._Mechanics
     private HingeJoint _hingeJoint;
 
     // Constants for break force and torque values
-    private const float BreakForce = 5400f;
-    private const float BreakTorque = 5200f;
+    private const float BreakForce = 5500f;
+    private const float BreakTorque = 5300f;
 
     private void Start()
     {

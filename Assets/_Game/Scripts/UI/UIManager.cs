@@ -104,7 +104,6 @@ namespace _Main._UI
     /// </summary>
     public void ShowSettings()
     {
-        Debug.Log("Settings button clicked");
         if (_settingsPanel != null)
         {
             _settingsPanel.gameObject.SetActive(true);

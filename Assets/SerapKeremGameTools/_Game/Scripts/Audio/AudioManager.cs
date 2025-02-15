@@ -12,6 +12,8 @@ namespace SerapKeremGameTools._Game._AudioSystem
     /// </summary>
     public class AudioManager : MonoSingleton<AudioManager>
     {
+        #region Inspector Fields
+
         [Header("Audio Clips List")]
         [Tooltip("A list of all available audio clips that can be played.")]
         [SerializeField]
@@ -22,13 +24,20 @@ namespace SerapKeremGameTools._Game._AudioSystem
         [SerializeField]
         private AudioPlayer audioPlayerPrefab; // Reference to the AudioPlayer prefab
 
-        private ObjectPool<AudioPlayer> audioPlayerPool; // Object pool for AudioPlayers
-        [SerializeField]
         [Tooltip("The maximum number of AudioPlayers that can be in the pool.")]
+        [SerializeField]
         private int poolSize = 10; // Maximum number of AudioPlayers in the pool
 
-        // Holds the currently playing audio name
-        private string currentAudio = string.Empty;
+        #endregion
+
+        #region Private Variables
+
+        private ObjectPool<AudioPlayer> audioPlayerPool; // Object pool for AudioPlayers
+        private string currentAudio = string.Empty; // Holds the currently playing audio name
+
+        #endregion
+
+        #region Initialization
 
         /// <summary>
         /// Initializes the AudioManager instance and sets up the audio pool.
@@ -37,11 +46,8 @@ namespace SerapKeremGameTools._Game._AudioSystem
         protected override void Awake()
         {
             base.Awake();
-
-            // Create the audio player pool with a capacity of poolSize
             InitializeAudioPlayerPool();
             ApplySavedVolume();
-            // Load the audio clips from Resources folder
             LoadAudioClips();
         }
 
@@ -50,8 +56,18 @@ namespace SerapKeremGameTools._Game._AudioSystem
         /// </summary>
         private void InitializeAudioPlayerPool()
         {
+            if (audioPlayerPrefab == null)
+            {
+                Debug.LogError("AudioPlayer prefab is not assigned! Please assign it in the Inspector.");
+                return;
+            }
+
             audioPlayerPool = new ObjectPool<AudioPlayer>(audioPlayerPrefab, poolSize, transform);
         }
+
+        /// <summary>
+        /// Applies the saved music volume settings to all audio sources in the scene.
+        /// </summary>
         private void ApplySavedVolume()
         {
             float savedVolume = LoadManager.LoadData<float>("MusicVolume", 1f);
@@ -67,58 +83,88 @@ namespace SerapKeremGameTools._Game._AudioSystem
         /// </summary>
         private void LoadAudioClips()
         {
-            // Load all AudioClips from Resources/Audio
             AudioClip[] clips = Resources.LoadAll<AudioClip>("Audio");
             foreach (var clip in clips)
             {
-                Audio newAudio = new Audio()
+                Audio newAudio = new Audio
                 {
                     Name = clip.name,
                     Clip = clip,
                     Volume = 1f,
                     Pitch = 1f,
-                    Loop = true
+                    Loop = false // Default loop value set to false
                 };
                 audioClips.Add(newAudio);
             }
+
+            if (audioClips.Count == 0)
+            {
+                Debug.LogWarning("No audio clips found in the Resources/Audio folder.");
+            }
         }
+
+        #endregion
+
+        #region Audio Playback
 
         /// <summary>
         /// Plays an audio clip by its name from the audioClips list.
-        /// If the audio is already playing, it won't play again.
+        /// If the audio is already playing, it won't play again unless forced.
         /// </summary>
         /// <param name="audioName">The name of the audio clip to play.</param>
+        /// <param name="loop">Whether the audio should loop.</param>
         public void PlayAudio(string audioName, bool loop = false)
         {
             // Find the audio clip by name
             Audio audio = audioClips.Find(a => a.Name == audioName);
-            if (audio != null)
+            if (audio == null)
             {
-                // Check if the audio is already playing
-                if (currentAudio == audioName && loop)
-                {
+                Debug.LogWarning($"Audio not found: {audioName}");
+                return;
+            }
+
+            // Check if the audio is already playing
+            if (currentAudio == audioName && loop)
+            {
 #if UNITY_EDITOR
-                    Debug.Log($"Audio {audioName} is already playing in loop.");
+                Debug.Log($"Audio {audioName} is already playing in loop.");
 #endif
-                    return;
-                }
+                return;
+            }
 
-                // Get an AudioPlayer from the pool and play the audio
-                AudioPlayer audioPlayer = audioPlayerPool.GetObject();
-                audioPlayer.PlayAudio(audio, loop);  // Pass the loop parameter to the PlayAudio method
-
-                // Set the current playing audio to this one
+            // Get an AudioPlayer from the pool and play the audio
+            AudioPlayer audioPlayer = audioPlayerPool.GetObject();
+            if (audioPlayer != null)
+            {
+                audioPlayer.PlayAudio(audio, loop);
                 currentAudio = audioName;
             }
             else
             {
-#if UNITY_EDITOR
-                Debug.LogWarning($"Audio not found: {audioName}");
-#endif
+                Debug.LogError("Failed to retrieve an AudioPlayer from the pool!");
             }
         }
 
+        /// <summary>
+        /// Stops the currently playing audio.
+        /// </summary>
+        public void StopAudio()
+        {
+            AudioSource[] audioSources = FindObjectsOfType<AudioSource>();
+            foreach (var source in audioSources)
+            {
+                if (source.isPlaying)
+                {
+                    source.Stop();
+                }
+            }
 
+            currentAudio = string.Empty;
+        }
+
+        #endregion
+
+        #region Pause and Resume
 
         /// <summary>
         /// Pauses all active AudioSources in the scene.
@@ -152,6 +198,10 @@ namespace SerapKeremGameTools._Game._AudioSystem
             }
         }
 
+        #endregion
+
+        #region Utility Methods
+
         /// <summary>
         /// Checks if the audio clip with the given name is currently playing.
         /// </summary>
@@ -159,7 +209,6 @@ namespace SerapKeremGameTools._Game._AudioSystem
         /// <returns>True if the audio is playing, otherwise false.</returns>
         public bool IsPlaying(string audioName)
         {
-            // Return true if the given audio is the one currently playing
             return currentAudio == audioName;
         }
 
@@ -169,7 +218,12 @@ namespace SerapKeremGameTools._Game._AudioSystem
         /// <param name="audioPlayer">The AudioPlayer to return to the pool.</param>
         public void ReturnAudioPlayerToPool(AudioPlayer audioPlayer)
         {
-            audioPlayerPool.ReturnObject(audioPlayer);
+            if (audioPlayer != null)
+            {
+                audioPlayerPool.ReturnObject(audioPlayer);
+            }
         }
+
+        #endregion
     }
 }
